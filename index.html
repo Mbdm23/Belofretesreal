@@ -35,6 +35,7 @@ body {
   color: #FF9000;
   font-size: 24px;
   text-transform: uppercase;
+  text-align: center; /* Alinha o título no centro */
 }
 .form-container label {
   display: block;
@@ -92,7 +93,7 @@ body {
 </head>
 <body>
 <div class="form-container">
-<h2>Gerar Etiqueta de Envio</h2>
+<h2>Gerador de Etiqueta de Envio</h2>
 <form id="etiquetaForm" onsubmit="event.preventDefault(); gerarEtiqueta();">
 <label for="cliente">Nome do Cliente:</label>
 <input type="text" id="cliente" required aria-required="true">
