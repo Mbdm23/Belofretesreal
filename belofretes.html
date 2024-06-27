@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etiqueta de Envio</title>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body {font-family: 'Overpass', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh;}
+.form-container {width: 100%; max-width: 400px; padding: 20px; background-color: #FFF; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; animation: fadeIn 1s ease-in-out;}
+@keyframes fadeIn {from {opacity: 0;} to {opacity: 1;}}
+.form-container h2 {margin-bottom: 20px; color: #FF9000;}
+.form-container label {display: block; font-weight: 600; margin: 10px 0 5px;}
+.form-container input[type="text"], .form-container input[type="number"], .form-container select {padding: 10px; margin: 5px 0 15px; width: calc(100% - 22px); border: 1px solid #ccc; border-radius: 5px; font-size: 16px;}
+.form-container button {background-color: #FF9000; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;}
+.form-container button:hover {background-color: #FFB74D;}
+.etiqueta {border: 2px solid #FF9000; padding: 20px; margin: 10px 0; background-color: #FFF8E1; border-radius: 10px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); position: relative; animation: slideIn 1s ease-in-out;}
+@keyframes slideIn {from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);}}
+.etiqueta img {position: absolute; top: 10px; left: 10px; width: 50px; height: auto;}
+.etiqueta-info {font-size: 16px; margin-bottom: 10px;}
+@media print {button {display: none;}}
+</style>
+</head>
+<body>
+<div class="form-container">
+<a href="https://ibb.co/CwyPRn2"><img src="https://i.ibb.co/CwyPRn2/0-B60211-A-E021-4593-A76-E-2-D48-F65-D3-D20.png" alt="Logo" border="0"></a>
+<h2>Gerar Etiqueta de Envio</h2>
+<form id="etiquetaForm" onsubmit="event.preventDefault(); gerarEtiqueta();">
+<label for="cliente">Nome do Cliente:</label>
+<input type="text" id="cliente" required aria-required="true">
+<label for="endereco">Endereço de Retirada:</label>
+<input type="text" id="endereco" required aria-required="true">
+<label for="cidadeRetirada">Cidade de Retirada:</label>
+<select id="cidadeRetirada" required aria-required="true">
+<option value="Serra Branca">Serra Branca</option>
+<option value="Rio de Janeiro">Rio de Janeiro</option>
+<option value="São Paulo">São Paulo</option>
+</select>
+<label for="destinatario">Destinatário:</label>
+<input type="text" id="destinatario" required aria-required="true">
+<label for="cidadeDestino">Cidade de Destino:</label>
+<select id="cidadeDestino" required aria-required="true">
+<option value="Serra Branca">Serra Branca</option>
+<option value="Rio de Janeiro">Rio de Janeiro</option>
+<option value="São Paulo">São Paulo</option>
+</select>
+<label for="volumes">Quantidade de Volumes:</label>
+<input type="number" id="volumes" required aria-required="true">
+<button type="submit">Gerar Etiqueta</button>
+</form>
+<div id="etiquetaContainer"></div>
+</div>
+<script>
+let serialNumber = 100000;
+function gerarEtiqueta() {
+  const cliente = document.getElementById('cliente').value;
+  const endereco = document.getElementById('endereco').value;
+  const cidadeRetirada = document.getElementById('cidadeRetirada').value;
+  const destinatario = document.getElementById('destinatario').value;
+  const cidadeDestino = document.getElementById('cidadeDestino').value;
+  const volumes = document.getElementById('volumes').value;
+
+  if (!cliente || !endereco || !cidadeRetirada || !destinatario || !cidadeDestino || !volumes) {
+    alert("Por favor, preencha todos os campos!");
+    return;
+  }
+
+  const etiqueta = `<div class="etiqueta"><a href="https://ibb.co/CwyPRn2"><img src="https://i.ibb.co/CwyPRn2/0-B60211-A-E021-4593-A76-E-2-D48-F65-D3-D20.png" alt="Logo" border="0"></a><p class="etiqueta-info"><strong>Nome do Cliente:</strong> ${cliente}</p><p class="etiqueta-info"><strong>Endereço de Retirada:</strong> ${endereco}</p><p class="etiqueta-info"><strong>Cidade de Retirada:</strong> ${cidadeRetirada}</p><p class="etiqueta-info"><strong>Destinatário:</strong> ${destinatario}</p><p class="etiqueta-info"><strong>Cidade de Destino:</strong> ${cidadeDestino}</p><p class="etiqueta-info"><strong>Quantidade de Volumes:</strong> ${volumes}</p><p class="etiqueta-info"><strong>Número Serial:</strong> ${serialNumber++}</p><button onclick="printEtiqueta(this.parentElement)">Imprimir Etiqueta</button></div>`;
+  document.getElementById('etiquetaContainer').innerHTML += etiqueta;
+}
+function printEtiqueta(etiquetaDiv) {
+  const printWindow = window.open('', '', 'width=600,height=400');
+  printWindow.document.write('<html><head><title>Etiqueta de Envio</title><link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600&display=swap" rel="stylesheet"><style>body { font-family: "Overpass", sans-serif; } .etiqueta { border: 2px solid #FF9000; padding: 20px; margin: 10px; background-color: #FFF8E1; border-radius: 10px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); position: relative; } .etiqueta img { position: absolute; top: 10px; left: 10px; width: 50px; height: auto; } @media print { button { display: none; } }</style></head><body >');
+  printWindow.document.write(etiquetaDiv.outerHTML);
+  printWindow.document.close();
+  printWindow.print();
+}
+</script>
+</body>
+</html>
