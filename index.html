@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -24,7 +23,6 @@ body {font-family: 'Overpass', sans-serif; background-color: #f4f4f4; margin: 0;
 </head>
 <body>
 <div class="form-container">
-<div style="height: 50px; width: 50px;"></div>
 <h2>Gerar Etiqueta de Envio</h2>
 <form id="etiquetaForm" onsubmit="event.preventDefault(); gerarEtiqueta();">
 <label for="cliente">Nome do Cliente:</label>
@@ -66,7 +64,7 @@ function gerarEtiqueta() {
     return;
   }
 
-  const etiqueta = `<div class="etiqueta"><div style="height: 50px; width: 50px;"></div><p class="etiqueta-info"><strong>Nome do Cliente:</strong> ${cliente}</p><p class="etiqueta-info"><strong>Endereço de Retirada:</strong> ${endereco}</p><p class="etiqueta-info"><strong>Cidade de Retirada:</strong> ${cidadeRetirada}</p><p class="etiqueta-info"><strong>Destinatário:</strong> ${destinatario}</p><p class="etiqueta-info"><strong>Cidade de Destino:</strong> ${cidadeDestino}</p><p class="etiqueta-info"><strong>Quantidade de Volumes:</strong> ${volumes}</p><p class="etiqueta-info"><strong>Número Serial:</strong> ${serialNumber++}</p><button onclick="printEtiqueta(this.parentElement)">Imprimir Etiqueta</button></div>`;
+  const etiqueta = `<div class="etiqueta"><p class="etiqueta-info"><strong>Nome do Cliente:</strong> ${cliente}</p><p class="etiqueta-info"><strong>Endereço de Retirada:</strong> ${endereco}</p><p class="etiqueta-info"><strong>Cidade de Retirada:</strong> ${cidadeRetirada}</p><p class="etiqueta-info"><strong>Destinatário:</strong> ${destinatario}</p><p class="etiqueta-info"><strong>Cidade de Destino:</strong> ${cidadeDestino}</p><p class="etiqueta-info"><strong>Quantidade de Volumes:</strong> ${volumes}</p><p class="etiqueta-info"><strong>Número Serial:</strong> ${serialNumber++}</p><button onclick="printEtiqueta(this.parentElement)">Imprimir Etiqueta</button></div>`;
   document.getElementById('etiquetaContainer').innerHTML += etiqueta;
 }
 function printEtiqueta(etiquetaDiv) {
