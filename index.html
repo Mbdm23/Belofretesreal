@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,20 +11,23 @@
             margin: 0;
             padding: 0;
             overflow-y: scroll;
+            background-color: #f0f0f0;
         }
         .form-container, .table-container {
-            margin: 20px;
+            margin: 20px auto;
             padding: 20px;
+            max-width: 800px;
             border: 1px solid #ddd;
             border-radius: 10px;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .form-container {
             margin-bottom: 40px;
         }
         .etiqueta {
             border: 2px solid #ff6f61;
-            padding: 0.5em;
+            padding: 1em;
             margin: 1em 0;
             background-color: #fff5f5;
             border-radius: 15px;
@@ -39,10 +41,11 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
         th {
@@ -57,9 +60,26 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #e65e50;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        form input[type="text"], form input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        h2 {
+            color: #ff6f61;
         }
     </style>
 </head>
@@ -148,7 +168,7 @@
                             body { font-family: 'Overpass', sans-serif; }
                             .etiqueta {
                                 border: 2px solid #ff6f61;
-                                padding: 0.5em;
+                                padding: 1em;
                                 margin: 1em;
                                 background-color: #fff5f5;
                                 border-radius: 15px;
@@ -179,7 +199,7 @@
                         <style>
                             body { font-family: 'Overpass', sans-serif; }
                             table { width: 100%; border-collapse: collapse; }
-                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
                             th { background-color: #f2f2f2; }
                             @media print { button { display: none; } }
                         </style>
