@@ -8,7 +8,7 @@
 <style>
 body {
     font-family: 'Overpass', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0f8ff;
     margin: 0;
     padding: 0;
     display: flex;
@@ -20,9 +20,9 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 20px;
-    background-color: #FFF;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
     animation: fadeIn 1s ease-in-out;
 }
@@ -32,12 +32,14 @@ body {
 }
 .form-container h2 {
     margin-bottom: 20px;
-    color: #FF9000;
+    color: #ff6f61;
+    font-size: 24px;
 }
 .form-container label {
     display: block;
     font-weight: 600;
     margin: 10px 0 5px;
+    color: #333;
 }
 .form-container input[type="text"], .form-container input[type="number"], .form-container select {
     padding: 10px;
@@ -46,9 +48,10 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .form-container button {
-    background-color: #FF9000;
+    background-color: #ff6f61;
     color: white;
     border: none;
     padding: 15px;
@@ -59,20 +62,20 @@ body {
     transition: background-color 0.3s;
 }
 .form-container button:hover {
-    background-color: #FFB74D;
+    background-color: #ff8b7b;
 }
 .etiqueta {
-    border: 2px solid #FF9000;
-    padding: 1em;
+    border: 2px solid #ff6f61;
+    padding: 0.5em;
     margin: 1em 0;
-    background-color: #FFF8E1;
-    border-radius: 10px;
+    background-color: #fff5f5;
+    border-radius: 15px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     animation: slideIn 1s ease-in-out;
-    display: block;
     overflow: hidden;
-    font-size: var(--font-size, 14px);
+    font-size: var(--font-size, 12px);
+    line-height: 1.2em;
 }
 @keyframes slideIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -90,42 +93,35 @@ body {
 </head>
 <body>
 <div class="form-container">
-<h2>Gerar Etiqueta de Envio</h2>
-<form id="etiquetaForm" onsubmit="event.preventDefault(); gerarEtiqueta();">
-    <label for="cliente">Nome do Cliente:</label>
-    <input type="text" id="cliente" required aria-required="true">
-    <label for="endereco">Endereço de Retirada:</label>
-    <input type="text" id="endereco" required aria-required="true">
-    <label for="destinatario">Destinatário:</label>
-    <input type="text" id="destinatario" required aria-required="true">
-    <label for="cidadeDestino">Cidade de Destino:</label>
-    <select id="cidadeDestino" required aria-required="true">
-        <option value="Serra Branca">Serra Branca</option>
-        <option value="Rio de Janeiro">Rio de Janeiro</option>
-        <option value="São Paulo">São Paulo</option>
-    </select>
-    <label for="volumes">Quantidade de Volumes:</label>
-    <input type="number" id="volumes" required aria-required="true">
-    <label for="tamanhoEtiqueta">Tamanho da Etiqueta (mm):</label>
-    <select id="tamanhoEtiqueta" required aria-required="true">
-        <option value="58x30">58x30</option>
-        <option value="58x40">58x40</option>
-        <option value="58x50">58x50</option>
-    </select>
-    <button type="submit">Gerar Etiqueta</button>
-</form>
-<div id="etiquetaContainer"></div>
+    <h2>Gerar Etiqueta de Envio</h2>
+    <form id="etiquetaForm" onsubmit="event.preventDefault(); gerarEtiqueta();">
+        <label for="cliente">Nome do Cliente:</label>
+        <input type="text" id="cliente" required aria-required="true">
+        <label for="endereco">Endereço de Retirada:</label>
+        <input type="text" id="endereco" required aria-required="true">
+        <label for="destinatario">Destinatário:</label>
+        <input type="text" id="destinatario" required aria-required="true">
+        <label for="volumes">Quantidade de Volumes:</label>
+        <input type="number" id="volumes" required aria-required="true">
+        <label for="tamanhoEtiqueta">Tamanho da Etiqueta (mm):</label>
+        <select id="tamanhoEtiqueta" required aria-required="true">
+            <option value="58x30">58x30</option>
+            <option value="58x40">58x40</option>
+            <option value="58x50">58x50</option>
+        </select>
+        <button type="submit">Gerar Etiqueta</button>
+    </form>
+    <div id="etiquetaContainer"></div>
 </div>
 <script>
 function gerarEtiqueta() {
     const cliente = document.getElementById('cliente').value;
     const endereco = document.getElementById('endereco').value;
     const destinatario = document.getElementById('destinatario').value;
-    const cidadeDestino = document.getElementById('cidadeDestino').value;
     const volumes = document.getElementById('volumes').value;
     const tamanhoEtiqueta = document.getElementById('tamanhoEtiqueta').value;
 
-    if (!cliente || !endereco || !destinatario || !cidadeDestino || !volumes || !tamanhoEtiqueta) {
+    if (!cliente || !endereco || !destinatario || !volumes || !tamanhoEtiqueta) {
         alert("Por favor, preencha todos os campos!");
         return;
     }
@@ -145,23 +141,22 @@ function gerarEtiqueta() {
             fontSize = '14px';
             break;
         default:
-            fontSize = '14px';
+            fontSize = '12px';
     }
 
     const etiqueta = `<div class="etiqueta" style="width: ${largura}mm; height: ${altura}mm; --font-size: ${fontSize};">
-        <p class="etiqueta-info"><strong>Nome do Cliente:</strong> ${cliente}</p>
-        <p class="etiqueta-info"><strong>Endereço de Retirada:</strong> ${endereco}</p>
+        <p class="etiqueta-info"><strong>Nome:</strong> ${cliente}</p>
+        <p class="etiqueta-info"><strong>Endereço:</strong> ${endereco}</p>
         <p class="etiqueta-info"><strong>Destinatário:</strong> ${destinatario}</p>
-        <p class="etiqueta-info"><strong>Cidade de Destino:</strong> ${cidadeDestino}</p>
-        <p class="etiqueta-info"><strong>Quantidade de Volumes:</strong> ${volumes}</p>
-        <p class="etiqueta-info"><strong>Número Serial:</strong> ${serialNumber}</p>
-    </div><button onclick="printEtiqueta(this.previousElementSibling)">Imprimir Etiqueta</button>`;
+        <p class="etiqueta-info"><strong>Volumes:</strong> ${volumes}</p>
+        <p class="etiqueta-info"><strong>Serial:</strong> ${serialNumber}</p>
+    </div><button onclick="printEtiqueta(this.previousElementSibling)">Imprimir</button>`;
     document.getElementById('etiquetaContainer').innerHTML += etiqueta;
 }
 
 function printEtiqueta(etiquetaDiv) {
     const printWindow = window.open('', '', 'width=600,height=400');
-    printWindow.document.write('<html><head><title>Etiqueta de Envio</title><link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600&display=swap" rel="stylesheet"><style>body { font-family: "Overpass", sans-serif; } .etiqueta { border: 2px solid #FF9000; padding: 1em; margin: 1em; background-color: #FFF8E1; border-radius: 10px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); position: relative; display: block; overflow: hidden; font-size: var(--font-size, 14px); } .etiqueta-info { font-weight: 600; margin-bottom: 5px; word-wrap: break-word; } @media print { button { display: none; } }</style></head><body>');
+    printWindow.document.write('<html><head><title>Etiqueta de Envio</title><link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600&display=swap" rel="stylesheet"><style>body { font-family: "Overpass", sans-serif; } .etiqueta { border: 2px solid #ff6f61; padding: 0.5em; margin: 1em; background-color: #fff5f5; border-radius: 15px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; font-size: var(--font-size, 12px); line-height: 1.2em; } .etiqueta-info { font-weight: 600; margin-bottom: 5px; word-wrap: break-word; } @media print { button { display: none; } }</style></head><body>');
     printWindow.document.write(etiquetaDiv.outerHTML);
     printWindow.document.close();
     printWindow.print();
