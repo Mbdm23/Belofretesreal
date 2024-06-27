@@ -33,9 +33,8 @@ body {
 .form-container h2 {
   margin-bottom: 20px;
   color: #FF9000;
-  font-size: 20px;
+  font-size: 24px;
   text-transform: uppercase;
-  text-align: center; /* Alinha o título no centro */
 }
 .form-container label {
   display: block;
@@ -79,6 +78,7 @@ body {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   animation: slideIn 1s ease-in-out;
+  text-align: left;
 }
 @keyframes slideIn {
   from {opacity: 0; transform: translateY(10px);}
@@ -95,27 +95,27 @@ body {
 <div class="form-container">
 <h2>Gerador de Etiqueta de Envio</h2>
 <form id="etiquetaForm" onsubmit="event.preventDefault(); gerarEtiqueta();">
-<label for="cliente">Nome do Cliente:</label>
-<input type="text" id="cliente" required aria-required="true">
-<label for="endereco">Endereço de Retirada:</label>
-<input type="text" id="endereco" required aria-required="true">
-<label for="cidadeRetirada">Cidade de Retirada:</label>
-<select id="cidadeRetirada" required aria-required="true">
-<option value="Serra Branca">Serra Branca</option>
-<option value="Rio de Janeiro">Rio de Janeiro</option>
-<option value="São Paulo">São Paulo</option>
-</select>
-<label for="destinatario">Destinatário:</label>
-<input type="text" id="destinatario" required aria-required="true">
-<label for="cidadeDestino">Cidade de Destino:</label>
-<select id="cidadeDestino" required aria-required="true">
-<option value="Serra Branca">Serra Branca</option>
-<option value="Rio de Janeiro">Rio de Janeiro</option>
-<option value="São Paulo">São Paulo</option>
-</select>
-<label for="volumes">Quantidade de Volumes:</label>
-<input type="number" id="volumes" required aria-required="true">
-<button type="submit">Gerar Etiqueta</button>
+  <label for="cliente">Nome do Cliente:</label>
+  <input type="text" id="cliente" required aria-required="true">
+  <label for="endereco">Endereço de Retirada:</label>
+  <input type="text" id="endereco" required aria-required="true">
+  <label for="cidadeRetirada">Cidade de Retirada:</label>
+  <select id="cidadeRetirada" required aria-required="true">
+    <option value="Serra Branca">Serra Branca</option>
+    <option value="Rio de Janeiro">Rio de Janeiro</option>
+    <option value="São Paulo">São Paulo</option>
+  </select>
+  <label for="destinatario">Destinatário:</label>
+  <input type="text" id="destinatario" required aria-required="true">
+  <label for="cidadeDestino">Cidade de Destino:</label>
+  <select id="cidadeDestino" required aria-required="true">
+    <option value="Serra Branca">Serra Branca</option>
+    <option value="Rio de Janeiro">Rio de Janeiro</option>
+    <option value="São Paulo">São Paulo</option>
+  </select>
+  <label for="volumes">Quantidade de Volumes:</label>
+  <input type="number" id="volumes" required aria-required="true">
+  <button type="submit">Gerar Etiqueta</button>
 </form>
 <div id="etiquetaContainer"></div>
 </div>
@@ -134,7 +134,16 @@ function gerarEtiqueta() {
     return;
   }
 
-  const etiqueta = `<div class="etiqueta"><p class="etiqueta-info"><strong>Nome do Cliente:</strong> ${cliente}</p><p class="etiqueta-info"><strong>Endereço de Retirada:</strong> ${endereco}</p><p class="etiqueta-info"><strong>Cidade de Retirada:</strong> ${cidadeRetirada}</p><p class="etiqueta-info"><strong>Destinatário:</strong> ${destinatario}</p><p class="etiqueta-info"><strong>Cidade de Destino:</strong> ${cidadeDestino}</p><p class="etiqueta-info"><strong>Quantidade de Volumes:</strong> ${volumes}</p><p class="etiqueta-info"><strong>Número Serial:</strong> ${serialNumber++}</p><button onclick="printEtiqueta(this.parentElement)">Imprimir Etiqueta</button></div>`;
+  const etiqueta = `<div class="etiqueta">
+    <p class="etiqueta-info"><strong>Nome do Cliente:</strong> ${cliente}</p>
+    <p class="etiqueta-info"><strong>Endereço de Retirada:</strong> ${endereco}</p>
+    <p class="etiqueta-info"><strong>Cidade de Retirada:</strong> ${cidadeRetirada}</p>
+    <p class="etiqueta-info"><strong>Destinatário:</strong> ${destinatario}</p>
+    <p class="etiqueta-info"><strong>Cidade de Destino:</strong> ${cidadeDestino}</p>
+    <p class="etiqueta-info"><strong>Quantidade de Volumes:</strong> ${volumes}</p>
+    <p class="etiqueta-info"><strong>Número Serial:</strong> ${serialNumber++}</p>
+    <button onclick="printEtiqueta(this.parentElement)">Imprimir Etiqueta</button>
+  </div>`;
   document.getElementById('etiquetaContainer').innerHTML += etiqueta;
 }
 
